@@ -53,24 +53,24 @@ class Node:
     @property
     def axis(self):
         '''орт оси x'''
-        res = self._matrix[:3, 0].view(vector.Vector)
-        return res
+        return self._matrix[:3, 0].view(vector.Vector)
 
     @property
     def up(self):
         '''орт оси y'''
-        res = self._matrix[:3, 1].view(vector.Vector)
-        return res
+        return self._matrix[:3, 1].view(vector.Vector)
 
     @property
     def pos(self):
         '''позиция в локальных координатах'''
         res = self._matrix[:3, 3].view(vector.Vector)
+        print("get_pos")
         return res
 
     @pos.setter
-    def set_pos(self, pos):
+    def pos(self, pos):
         '''установит позицию в локальных координатах'''
+        print('set_pos pos:%s' % (pos, ))
         self._matrix[:3, 3] = pos
 
     @property
