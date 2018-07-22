@@ -127,9 +127,9 @@ class Node:
 
 if __name__ == "__main__":
     f = Node(pos=(12, 23, 3))
-    print f.pos
-    print f.up
-    print f.axis
-    print f.matrix
-    print f.frame_to_world(vector.Vector((1, 2, 3)))
-    print f.world_to_frame((12, 12, 23))
+    print(f.pos)
+    print(f.up)
+    print(f.axis)
+    print(f.matrix)
+    print(f.frame_to_world(vector.Vector((1, 2, 3))))
+    print(f.world_to_frame((12, 12, 23)))

@@ -117,13 +117,14 @@ if __name__ == "__main__":
     print(type(cross(Vector(1, 0, 0), Vector(0.3, 1, 0))))
     print(type(proj(Vector(1, 0, 0), Vector(0.3, 1, 0))))
     print(type(comp(Vector(1, 0, 0), Vector(0.3, 1, 0))))
-    print(type(diff_angle(Vector(1, 0, 0), vector(-1, 1, 0))))
+    print(type(
+        diff_angle(Vector(1, 0, 0), vector(-1, 1, 0))))
     print(type(rotate(Vector(1, 0, 0), 1, Vector(0, 1, 0))))
     print(type(astuple(Vector(1, 0, 0))))
 
-    print (Vector(2, 0, 0).mag, v_vector(2, 0, 0).mag)
-    print (Vector(2, 0, 0).mag2, v_vector(2, 0, 0).mag2)
-    print (Vector(2, 0, 0).norm(), v_vector(2, 0, 0).norm())
+    print(Vector(2, 0, 0).mag, v_vector(2, 0, 0).mag)
+    print(Vector(2, 0, 0).mag2, v_vector(2, 0, 0).mag2)
+    print(Vector(2, 0, 0).norm(), v_vector(2, 0, 0).norm())
     print(
         Vector(1, 0, 0).dot(Vector(0.3, 1, 0)),
         v_vector(1, 0, 0).dot(Vector(0.3, 1, 0)))
