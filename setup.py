@@ -8,4 +8,6 @@ setup(
     packages=find_packages(),
     license='GPL',
     zip_safe=False,
+    install_requires=[
+        line.strip() for line in open('requirements.txt')]
 )
