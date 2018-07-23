@@ -2,7 +2,6 @@
 from PyQt5 import QtCore, QtGui, QtOpenGL
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from OpenGL.GLUT import *
 from engine_3d import sphere
 from engine_3d import scene
 
@@ -31,7 +30,7 @@ class SceneView(QtOpenGL.QGLWidget):
         self.makeCurrent()
 
     def initializeGL(self):
-        glutInit(sys.argv)
+        # glutInit(sys.argv)
         self.scene = scene.Scene.cur_scene()
         self.scene.initializeGL()
 
