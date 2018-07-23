@@ -1,4 +1,4 @@
-Sample 3d engine, can be used for simple games and educations presentations.
+Sample 3d engine (Python3 only), can be used for simple games and educations presentations.
 ----------------------------------------------------------------------------
 
 Install:
