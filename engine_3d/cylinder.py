@@ -2,23 +2,22 @@
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from engine_3d import shape
-from engine_3d import vector
 
 
 class Cylinder(shape.Shape):
-    def __init__(self, **kwargs):
+    def __init__(
+            self,
+            radius=1,
+            length=1,
+            segments=10,
+            **kwargs):
         """
-            radius = 1, length = 1 segments = 10,
-            color=(1, 1, 1), pos=(0, 0, 0),
-            axis=(1, 0, 0), up=(0, 1, 0)
+        Cylinder shape
         """
         shape.Shape.__init__(self, **kwargs)
-
-        self.color = kwargs["color"] if "color" in kwargs else (1.0, 1.0, 1.0)
-        self.radius = kwargs["radius"] if "radius" in kwargs else 1
-        self.length = kwargs["length"] if "length" in kwargs else (
-            1.0 if "axis" not in kwargs else vector.Vector(kwargs["axis"]).mag)
-        self.segments = kwargs["segments"] if "segments" in kwargs else 10
+        self.radius = radius
+        self.length = length
+        self.segments = segments
 
     def make(self):
         glNewList(self.list_id, GL_COMPILE)

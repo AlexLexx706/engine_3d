@@ -6,15 +6,17 @@ from engine_3d import shape
 
 
 class Sphere(shape.Shape):
-    def __init__(self, **kwargs):
+    def __init__(
+            self,
+            radius=1,
+            segments=10,
+            **kwargs):
         """
-            radius = 1, segments = 10, color=(1, 1, 1),
-            pos=(0, 0, 0), axis=(1, 0, 0), up=(0, 1, 0)
+        Shpere shape
         """
         shape.Shape.__init__(self, **kwargs)
-        self.color = kwargs["color"] if "color" in kwargs else (1.0, 1.0, 1.0)
-        self.radius = kwargs["radius"] if "radius" in kwargs else 1
-        self.segments = kwargs["segments"] if "segments" in kwargs else 10
+        self.radius = radius
+        self.segments = segments
 
     def make(self):
         if sys.platform != 'win32':

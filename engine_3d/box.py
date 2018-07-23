@@ -5,25 +5,23 @@ from engine_3d import vector
 
 
 class Box(shape.Shape):
-    def __init__(self, **kwargs):
-        """
-            length=1, height=1, width=1,
-            color=(1, 1, 1), pos=(0, 0, 0),
-            axis=(1, 0, 0), up=(0, 1, 0)"""
+    def __init__(
+            self,
+            length=1,
+            height=1,
+            width=1,
+            size=None,
+            **kwargs):
+        '''Box shape'''
         shape.Shape.__init__(self, **kwargs)
+        self.length = length
+        self.height = height
+        self.width = width
 
-        if "size" in kwargs:
-            self.length = kwargs["size"][0]
-            self.height = kwargs["size"][1]
-            self.width = kwargs["size"][2]
-        else:
-            self.length = kwargs["length"] if "length" in kwargs else (
-                1.0 if "axis" not in kwargs else vector.Vector(
-                    kwargs["axis"]).mag)
-            self.height = kwargs["height"] if "height" in kwargs else (
-                1.0 if "up" not in kwargs else vector.Vector(
-                    kwargs["up"]).mag)
-            self.width = kwargs["width"] if "width" in kwargs else 1.0
+        if size is not None:
+            self.length = size[0]
+            self.height = size[1]
+            self.width = size[2]
 
     def make(self):
         d_x = self.length / 2.0

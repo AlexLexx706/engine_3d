@@ -4,7 +4,10 @@ from engine_3d import node
 
 
 class Shape(node.Node):
-    def __init__(self, color=(1.0, 1.0, 1.0), **kwargs):
+    def __init__(
+            self,
+            color=(1.0, 1.0, 1.0),
+            **kwargs):
         '''Base class for all shapes (box, cilinder, sphere).'''
         node.Node.__init__(self, **kwargs)
         self.color = color
