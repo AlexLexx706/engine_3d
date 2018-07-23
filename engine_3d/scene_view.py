@@ -21,7 +21,7 @@ class SceneView(QtOpenGL.QGLWidget):
         self.rotate_camera = False
         self.move_cursor = False
         self.old_cursore_pos = None
-        self.sphere = sphere.Sphere(radius=10)
+        # self.sphere = sphere.Sphere(radius=10)
 
     def sizeHint(self):
         return QtCore.QSize(1024, 768)

@@ -8,7 +8,9 @@ from engine_3d import cylinder
 
 class Bone(node.Node):
     def __init__(
-            self, show_center=True,
+            self,
+            show_center=True,
+            center_len=20,
             freedom_x_angle=None, freedom_y_angle=None, freedom_z_angle=None,
             freedom_x_move=None, freedom_y_move=None, freedom_z_move=None,
             **kwargs):
@@ -37,13 +39,13 @@ class Bone(node.Node):
 
         self.x_arrow = cylinder.Cylinder(
             parent=self, pos=(0, 0, 0), axis=(1, 0, 0),
-            length=10, shaftwidth=1, fixedwidth=True, color=(1, 0, 0))
+            length=center_len, shaftwidth=1, fixedwidth=True, color=(1, 0, 0))
         self.y_arrow = cylinder.Cylinder(
             parent=self, pos=(0, 0, 0), axis=(0, 1, 0),
-            length=10, shaftwidth=1, fixedwidth=True, color=(0, 1, 0))
+            length=center_len, shaftwidth=1, fixedwidth=True, color=(0, 1, 0))
         self.z_arrow = cylinder.Cylinder(
             parent=self, pos=(0, 0, 0), axis=(0, 0, 1),
-            length=10, shaftwidth=1, fixedwidth=True, color=(0, 0, 1))
+            length=center_len, shaftwidth=1, fixedwidth=True, color=(0, 0, 1))
         self.set_visible_center(show_center)
 
     def set_freedom_x_angle(self, freedom):
