@@ -47,4 +47,8 @@ class Scene():
         side = min(width, height)
         if side < 0:
             return
-        glViewport((width - side) / 2, (height - side) / 2, side, side)
+        glViewport(
+            int((width - side) / 2),
+            int((height - side) / 2),
+            side,
+            side)

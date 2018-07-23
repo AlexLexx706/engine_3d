@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from PyQt4 import QtCore, QtGui, QtOpenGL
+from PyQt5 import QtCore, QtGui, QtOpenGL
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-from PyQt4.QtCore import pyqtSignal
 from engine_3d import sphere
 from engine_3d import scene
 
@@ -11,7 +10,7 @@ from engine_3d import scene
 class SceneView(QtOpenGL.QGLWidget):
     # сигнал, движение курсора:
     # Camera, QPoint, состояние: 0-начало, 1-движение, 2-конец
-    cursor_move = pyqtSignal(object, object, int)
+    cursor_move = QtCore.pyqtSignal(object, object, int)
     CAMERA_SCALE_STEP = 50
 
     def __init__(self, parent=None):

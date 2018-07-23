@@ -63,14 +63,11 @@ class Node:
     @property
     def pos(self):
         '''позиция в локальных координатах'''
-        res = self._matrix[:3, 3].view(vector.Vector)
-        print("get_pos")
-        return res
+        return self._matrix[:3, 3].view(vector.Vector)
 
     @pos.setter
     def pos(self, pos):
         '''установит позицию в локальных координатах'''
-        print('set_pos pos:%s' % (pos, ))
         self._matrix[:3, 3] = pos
 
     @property
