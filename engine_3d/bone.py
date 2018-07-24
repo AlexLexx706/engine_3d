@@ -3,14 +3,11 @@
 from __future__ import division
 from engine_3d import node
 from engine_3d import vector
-from engine_3d import cylinder
 
 
 class Bone(node.Node):
     def __init__(
             self,
-            show_center=True,
-            center_len=20,
             freedom_x_angle=None, freedom_y_angle=None, freedom_z_angle=None,
             freedom_x_move=None, freedom_y_move=None, freedom_z_move=None,
             **kwargs):
@@ -37,17 +34,6 @@ class Bone(node.Node):
         self.freedom_y_move = freedom_y_move
         self.freedom_z_move = freedom_z_move
 
-        self.x_arrow = cylinder.Cylinder(
-            parent=self, pos=(0, 0, 0), axis=(1, 0, 0),
-            length=center_len, shaftwidth=1, fixedwidth=True, color=(1, 0, 0))
-        self.y_arrow = cylinder.Cylinder(
-            parent=self, pos=(0, 0, 0), axis=(0, 1, 0),
-            length=center_len, shaftwidth=1, fixedwidth=True, color=(0, 1, 0))
-        self.z_arrow = cylinder.Cylinder(
-            parent=self, pos=(0, 0, 0), axis=(0, 0, 1),
-            length=center_len, shaftwidth=1, fixedwidth=True, color=(0, 0, 1))
-        self.set_visible_center(show_center)
-
     def set_freedom_x_angle(self, freedom):
         self.freedom_x_angle = freedom
 
@@ -68,11 +54,6 @@ class Bone(node.Node):
 
     def add_target(self, glob_pos, pos, weight):
         self.targets.append((glob_pos, pos, weight))
-
-    def set_visible_center(self, v):
-        self.x_arrow.visible = v
-        self.y_arrow.visible = v
-        self.z_arrow.visible = v
 
     def is_center_visible(self):
         return self.z_arrow.visible

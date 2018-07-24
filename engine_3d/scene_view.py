@@ -2,7 +2,7 @@
 from PyQt5 import QtCore, QtGui, QtOpenGL
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from engine_3d import sphere
+from engine_3d import shape
 from engine_3d import scene
 
 
@@ -21,7 +21,7 @@ class SceneView(QtOpenGL.QGLWidget):
         self.rotate_camera = False
         self.move_cursor = False
         self.old_cursore_pos = None
-        # self.sphere = sphere.Sphere(radius=10)
+        self.center = shape.Shape()
 
     def sizeHint(self):
         return QtCore.QSize(1024, 768)
@@ -98,6 +98,9 @@ class SceneView(QtOpenGL.QGLWidget):
         elif event.key() == QtCore.Qt.Key_Minus:
             self.scene.camera.move_eye(self.CAMERA_SCALE_STEP)
 
+    def wheelEvent(self, event):
+        print("wheelEvent angleDelta:%s" % (event.angleDelta(), ))
+        self.scene.camera.move_eye(event.angleDelta().y() * 0.1)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)

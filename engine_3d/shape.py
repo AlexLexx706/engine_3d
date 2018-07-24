@@ -4,9 +4,13 @@ from engine_3d import node
 
 
 class Shape(node.Node):
+    line_width = 4.0
+    center_length = 10.0
+
     def __init__(
             self,
             color=(1.0, 1.0, 1.0),
+            show_center=True,
             **kwargs):
         '''Base class for all shapes (box, cilinder, sphere).'''
         node.Node.__init__(self, **kwargs)
@@ -14,6 +18,7 @@ class Shape(node.Node):
         self.list_id = None
         self.visible = True
         self.first_make = True
+        self.show_center = show_center
 
     def make(self):
         '''Call for create opengl object,
@@ -40,6 +45,29 @@ class Shape(node.Node):
             glLoadMatrixd(self.matrix.T)
             glColor(self.color)
             glCallList(self.list_id)
+
+            # show center
+            if self.show_center:
+                # disable lighting
+                glDisable(GL_LIGHTING)
+
+                glLineWidth(self.line_width)
+                glBegin(GL_LINES)
+                glColor3f(1.0, 0.0, 0.0)
+                glVertex3f(0.0, 0.0, 0.0)
+                glVertex3f(self.center_length, 0, 0)
+
+                glColor3f(0.0, 1.0, 0.0)
+                glVertex3f(0.0, 0.0, 0.0)
+                glVertex3f(0, self.center_length, 0)
+
+                glColor3f(0.0, 0.0, 1.0)
+                glVertex3f(0.0, 0.0, 0.0)
+                glVertex3f(0, 0, self.center_length)
+                glEnd()
+
+                # enable lighting
+                glEnable(GL_LIGHTING)
 
 
 if __name__ == '__main__':
