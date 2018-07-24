@@ -34,9 +34,9 @@ class Node:
             vector.Vector(up).norm()
 
         up = axis.cross(up).cross(axis)
-
         if up.mag == 0:
-            up = vector.Vector(-1.0, 0.0, 0.0)
+            up = axis.cross(
+                vector.Vector(-1.0, 0.0, 0.0)).cross(axis)
 
         self._matrix = np.identity(4)
         self._matrix[:3, 0] = axis

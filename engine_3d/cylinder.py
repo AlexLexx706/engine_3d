@@ -21,6 +21,7 @@ class Cylinder(shape.Shape):
 
     def make(self):
         glNewList(self.list_id, GL_COMPILE)
+        glPushMatrix()
         glRotate(90, 0, 1, 0)
         quadric = gluNewQuadric()
         gluQuadricOrientation(quadric, GLU_INSIDE)
@@ -30,6 +31,7 @@ class Cylinder(shape.Shape):
                     self.length, self.segments, 1)
         glTranslatef(0, 0, self.length)
         gluDisk(quadric, 0, self.radius, self.segments, 1)
+        glPopMatrix()
         glEndList()
 
 
