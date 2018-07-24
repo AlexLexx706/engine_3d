@@ -3,123 +3,26 @@
 from __future__ import division
 from engine_3d import node
 from engine_3d import vector
+import math
 
 
 class Bone(node.Node):
     def __init__(
             self,
             freedom_x_angle=None, freedom_y_angle=None, freedom_z_angle=None,
-            freedom_x_move=None, freedom_y_move=None, freedom_z_move=None,
             **kwargs):
         """
             Обьект кость,
                 с помощью кости можно решать задачу инверсной кинематики
-            parent - предок
-            pos - позиция локальные координаты
-            len - длинна видимого обьекта кости
             freedom_x_angle, freedom_y_angle,
                 freedom_z_angle- ограничения вращения,
                 None или (start_angle, end_angle) - углы в радианах
-            freedom_x_move, freedom_y_move,
-                freedom_z_move - ограничения перемещения,
-                none или (start_pos, end_pos)
         """
         node.Node.__init__(self, **kwargs)
         self.targets = []
         self.freedom_x_angle = freedom_x_angle
         self.freedom_y_angle = freedom_y_angle
         self.freedom_z_angle = freedom_z_angle
-
-        self.freedom_x_move = freedom_x_move
-        self.freedom_y_move = freedom_y_move
-        self.freedom_z_move = freedom_z_move
-
-    def set_freedom_x_angle(self, freedom):
-        self.freedom_x_angle = freedom
-
-    def get_freedom_x_angle(self):
-        return self.freedom_x_angle
-
-    def set_freedom_y_angle(self, freedom):
-        self.freedom_y_angle = freedom
-
-    def get_freedom_y_angle(self):
-        return self.freedom_y_angle
-
-    def set_freedom_z_angle(self, freedom):
-        self.freedom_z_angle = freedom
-
-    def get_freedom_z_angle(self):
-        return self.freedom_z_angle
-
-    def add_target(self, glob_pos, pos, weight):
-        self.targets.append((glob_pos, pos, weight))
-
-    def is_center_visible(self):
-        return self.z_arrow.visible
-
-    def get_proj_angle(self, axis, up, vec):
-        """
-            возвращает угол проекции vec на плоскость (axis, up),
-            угол отсчитывается от axis"""
-        vec_proj = axis * axis.dot(vec) + up * up.dot(vec)
-        angle = axis.diff_angle(vec_proj)
-
-        if up.dot(vec) < 0:
-            return -angle
-        return angle
-
-    def set_proj_angle(self, freedom, angle, axis, up, vec):
-        if freedom is not None:
-            """
-                Выстовить угол проекции вектора на плоскость axis,
-                up с учётом проидолов
-            """
-            if angle < freedom[0]:
-                angle = freedom[0]
-
-            if angle > freedom[1]:
-                angle = freedom[1]
-
-        # установим угол
-        offset_angle = angle - self.get_proj_angle(axis, up, vec)
-        self.rotate(angle=offset_angle, axis=axis.cross(up))
-
-    def get_angle_x(self):
-        return self.get_proj_angle(
-            vector.Vector(0, 1, 0), vector.Vector(0, 0, 1), self.up)
-
-    def set_angle_x(self, angle):
-        self.set_proj_angle(
-            self.freedom_x_angle,
-            angle,
-            vector.Vector(0, 1, 0),
-            vector.Vector(0, 0, 1),
-            self.up)
-
-    def get_angle_y(self):
-        return self. get_proj_angle(
-            vector.Vector(0, 0, 1),
-            vector.Vector(1, 0, 0),
-            self.axis.cross(self.up))
-
-    def set_angle_y(self, angle):
-        self.set_proj_angle(
-            self.freedom_y_angle,
-            angle,
-            vector.Vector(0, 0, 1),
-            vector.Vector(1, 0, 0),
-            self.axis.cross(self.up))
-
-    def get_angle_z(self):
-        return self. get_proj_angle(
-            vector.Vector(1, 0, 0),
-            vector.Vector(0, 1, 0),
-            self.axis)
-
-    def set_angle_z(self, angle):
-        self.set_proj_angle(self.freedom_z_angle, angle, vector.Vector(
-            1, 0, 0), vector.Vector(0, 1, 0), self.axis)
 
     def calk_ik_on_plane(self, plane, base_axis, freedom, target, end):
         '''Рассчёт кинематики для оси'''

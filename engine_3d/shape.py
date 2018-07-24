@@ -6,13 +6,13 @@ from engine_3d import vector
 
 class Shape(node.Node):
     line_width = 4.0
-    center_length = 10.0
 
     def __init__(
             self,
             color=(1.0, 1.0, 1.0),
-            show_center=True,
+            show_center=False,
             offset=vector.Vector(0.0, 0.0, 0.0),
+            center_length=10.0,
             **kwargs):
         '''Base class for all shapes (box, cilinder, sphere).
             colol - shape color
@@ -26,6 +26,7 @@ class Shape(node.Node):
         self.first_make = True
         self.show_center = show_center
         self.offset = offset
+        self.center_length = center_length
 
     def make(self):
         '''Call for create opengl object,

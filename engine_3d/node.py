@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import numpy as np
+import math
 from engine_3d import scene
 from engine_3d import transformations
 from engine_3d import vector
@@ -10,6 +11,12 @@ LOG = logging.getLogger(__name__)
 
 class Node:
     '''Base class for all objects in engines'''
+    o_x = vector.Vector(1.0, 0.0, 0.0)
+    o_y = vector.Vector(0.0, 1.0, 0.0)
+    o_z = vector.Vector(0.0, 0.0, 1.0)
+    freedom_x_angle = None
+    freedom_y_angle = None
+    freedom_z_angle = None
 
     def __init__(
             self,
@@ -49,6 +56,24 @@ class Node:
 
         if self.parent is not None:
             self.parent.childs.append(self)
+
+    def set_freedom_x_angle(self, freedom):
+        self.freedom_x_angle = freedom
+
+    def get_freedom_x_angle(self):
+        return self.freedom_x_angle
+
+    def set_freedom_y_angle(self, freedom):
+        self.freedom_y_angle = freedom
+
+    def get_freedom_y_angle(self):
+        return self.freedom_y_angle
+
+    def set_freedom_z_angle(self, freedom):
+        self.freedom_z_angle = freedom
+
+    def get_freedom_z_angle(self):
+        return self.freedom_z_angle
 
     @property
     def axis(self):
@@ -114,6 +139,57 @@ class Node:
         r_m = transformations.rotation_matrix(angle, axis, point)
         self._matrix = r_m.dot(self._matrix)
         self._matrix[:3, 3] = pos
+
+    def get_proj_angle(self, axis, up, vec):
+        """
+            возвращает угол проекции vec на плоскость (axis, up),
+            угол отсчитывается от axis"""
+        return math.atan2(up.dot(vec), axis.dot(vec))
+
+    def set_proj_angle(self, freedom, angle, axis, up, vec):
+        """
+            Выстовить угол проекции вектора на плоскость axis,
+            up с учётом проидолов
+        """
+        if freedom is not None:
+            if angle < freedom[0]:
+                angle = freedom[0]
+
+            if angle > freedom[1]:
+                angle = freedom[1]
+
+        # установим угол
+        offset_angle = angle - self.get_proj_angle(axis, up, vec)
+        self.rotate(angle=offset_angle, axis=axis.cross(up))
+
+    def get_angle_x(self):
+        '''return angle by x ort'''
+        return self.get_proj_angle(self.o_y, self.o_z, self.up)
+
+    def set_angle_x(self, angle):
+        self.set_proj_angle(
+            self.freedom_x_angle, angle, self.o_y, self.o_z, self.up)
+
+    def get_angle_y(self):
+        return self.get_proj_angle(
+            self.o_z, self.o_x, self.axis.cross(self.up))
+
+    def set_angle_y(self, angle):
+        self.set_proj_angle(
+            self.freedom_y_angle, angle,
+            self.o_z, self.o_x, self.axis.cross(self.up))
+
+    def get_angle_z(self):
+        return self.get_proj_angle(self.o_x, self.o_y, self.axis)
+
+    def set_angle_z(self, angle):
+        self.set_proj_angle(
+            self.freedom_z_angle, angle,
+            self.o_x, self.o_y, self.axis)
+
+    ang_x = property(get_angle_x, set_angle_x)
+    ang_y = property(get_angle_y, set_angle_y)
+    ang_z = property(get_angle_z, set_angle_z)
 
     def update(self):
         '''
