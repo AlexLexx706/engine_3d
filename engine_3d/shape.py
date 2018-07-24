@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from OpenGL.GL import *
 from engine_3d import node
+from engine_3d import vector
 
 
 class Shape(node.Node):
@@ -11,14 +12,20 @@ class Shape(node.Node):
             self,
             color=(1.0, 1.0, 1.0),
             show_center=True,
+            offset=vector.Vector(0.0, 0.0, 0.0),
             **kwargs):
-        '''Base class for all shapes (box, cilinder, sphere).'''
+        '''Base class for all shapes (box, cilinder, sphere).
+            colol - shape color
+            show_center - show center of shape
+            offset - offset of shape
+        '''
         node.Node.__init__(self, **kwargs)
         self.color = color
         self.list_id = None
         self.visible = True
         self.first_make = True
         self.show_center = show_center
+        self.offset = offset
 
     def make(self):
         '''Call for create opengl object,
@@ -44,7 +51,10 @@ class Shape(node.Node):
         if self.visible:
             glLoadMatrixd(self.matrix.T)
             glColor(self.color)
+            glPushMatrix()
+            glTranslated(*self.offset)
             glCallList(self.list_id)
+            glPopMatrix()
 
             # show center
             if self.show_center:

@@ -99,8 +99,9 @@ class SceneView(QtOpenGL.QGLWidget):
             self.scene.camera.move_eye(self.CAMERA_SCALE_STEP)
 
     def wheelEvent(self, event):
-        print("wheelEvent angleDelta:%s" % (event.angleDelta(), ))
+        '''Uased for change camera scale factor'''
         self.scene.camera.move_eye(event.angleDelta().y() * 0.1)
+
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
