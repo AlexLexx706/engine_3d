@@ -9,7 +9,9 @@ import math
 class Bone(node.Node):
     def __init__(
             self,
-            freedom_x_angle=None, freedom_y_angle=None, freedom_z_angle=None,
+            freedom_x_angle=None,
+            freedom_y_angle=None,
+            freedom_z_angle=None,
             **kwargs):
         """
             Обьект кость,

@@ -9,7 +9,7 @@ class Shape(node.Node):
 
     def __init__(
             self,
-            color=(1.0, 1.0, 1.0),
+            color=(1.0, 1.0, 1.0, 1.0),
             show_center=False,
             offset=vector.Vector(0.0, 0.0, 0.0),
             center_length=10.0,
@@ -51,7 +51,7 @@ class Shape(node.Node):
 
         if self.visible:
             glLoadMatrixd(self.matrix.T)
-            glColor(self.color)
+            glColor4f(*self.color)
             glPushMatrix()
             glTranslated(*self.offset)
             glCallList(self.list_id)

@@ -38,7 +38,8 @@ class Scene():
         glEnable(GL_NORMALIZE)
         glEnable(GL_AUTO_NORMAL)
         glEnable(GL_COLOR_MATERIAL)
-
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        # glEnable(GL_BLEND)
         glClearColor(0.0, 0.0, 0.0, 1.0)
         glShadeModel(GL_SMOOTH)
 
