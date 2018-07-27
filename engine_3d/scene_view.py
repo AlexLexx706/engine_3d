@@ -12,8 +12,8 @@ class SceneView(QtOpenGL.QGLWidget):
     cursor_move = QtCore.pyqtSignal(object, object, int)
     CAMERA_SCALE_STEP = 50
 
-    def __init__(self, parent=None):
-        QtOpenGL.QGLWidget.__init__(self, parent)
+    def __init__(self, *args, **kwargs):
+        QtOpenGL.QGLWidget.__init__(self, *args, **kwargs)
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update)
         self.timer.start(20)
@@ -25,9 +25,6 @@ class SceneView(QtOpenGL.QGLWidget):
 
     def sizeHint(self):
         return QtCore.QSize(1024, 768)
-
-    def __del__(self):
-        self.makeCurrent()
 
     def initializeGL(self):
         # glutInit(sys.argv)
