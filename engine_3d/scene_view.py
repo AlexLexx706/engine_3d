@@ -26,9 +26,12 @@ class SceneView(QtOpenGL.QGLWidget):
     def sizeHint(self):
         return QtCore.QSize(1024, 768)
 
+    @property
+    def scene(self):
+        return scene.Scene.cur_scene()
+
     def initializeGL(self):
         # glutInit(sys.argv)
-        self.scene = scene.Scene.cur_scene()
         self.scene.initializeGL()
 
     def paintGL(self):
