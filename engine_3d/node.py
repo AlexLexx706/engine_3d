@@ -96,6 +96,16 @@ class Node:
         self._matrix[:3, 3] = pos
 
     @property
+    def g_pos(self):
+        '''return global pos'''
+        return self.frame_to_world(vector.Vector(0, 0, 0))
+
+    @g_pos.setter
+    def g_pos(self, pos):
+        '''setup global position'''
+        self.world_to_frame(pos)
+
+    @property
     def matrix(self):
         '''Возвращает матрицу фрейма'''
         return self._matrix if self.parent is None else\
