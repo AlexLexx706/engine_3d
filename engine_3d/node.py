@@ -110,7 +110,6 @@ class Node:
         '''Возвращает матрицу фрейма'''
         return self._matrix if self.parent is None else\
             self.parent.matrix.dot(self._matrix)
-
     def remove(self):
         '''Удалить со сцены'''
         self.scene.frames.remove(self)
