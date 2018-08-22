@@ -2,7 +2,7 @@
 import logging
 import numpy as np
 import math
-from engine_3d import scene
+from engine_3d import scene as scene_module
 from engine_3d import transformations
 from engine_3d import vector
 
@@ -24,7 +24,7 @@ class Node:
             pos=vector.Vector(0.0, 0.0, 0.0),
             axis=vector.Vector(1.0, 0.0, 0.0),
             up=None,
-            cur_scene=None,
+            scene=None,
             **kwargs):
         """
             Создание фрейма.
@@ -51,7 +51,7 @@ class Node:
         self._matrix[:3, 1] = up
         self._matrix[:3, 2] = axis.cross(up)
         self._matrix[:3, 3] = pos
-        self.scene = scene.Scene.cur_scene() if cur_scene is None else cur_scene
+        self.scene = scene_module.Scene.cur_scene() if scene is None else scene
         self.scene.frames.append(self)
         self.childs = []
 
