@@ -1,22 +1,14 @@
 # -*- coding: utf-8 -*-
 from OpenGL.GL import *
+import engine_3d
+from engine_3d import camera
 
 
 class Scene():
-    CUR_SCENE = None
-
-    @staticmethod
-    def cur_scene():
-        if Scene.CUR_SCENE is None:
-            Scene.CUR_SCENE = Scene()
-        return Scene.CUR_SCENE
-
     def __init__(self):
         self.frames = []
-        if Scene.CUR_SCENE is None:
-            Scene.CUR_SCENE = self
-
-        from engine_3d import camera
+        if engine_3d.CUR_SCENE is None:
+            engine_3d.CUR_SCENE = self
         self.camera = camera.Camera()
 
     def update(self):
